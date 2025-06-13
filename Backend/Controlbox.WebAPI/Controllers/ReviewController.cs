@@ -39,6 +39,7 @@ namespace Controlbox.Api.Controllers
         /// </summary>
         /// <returns>List of reviews.</returns>
         [HttpGet]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<List<ReviewDto>>> GetAllReviews()
         {
             var result = await this.mediator.Send(new GetAllReviewsQuery());
