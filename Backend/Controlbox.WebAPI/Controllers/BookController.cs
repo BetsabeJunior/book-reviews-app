@@ -109,6 +109,7 @@ namespace Controlbox.Api.Controllers
         /// <returns>No content or not found.</returns>
         [HttpPut("{id}")]
         [Authorize]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> UpdateBook(int id, [FromBody] UpdateBookCommand command)
         {
             if (id != command.Id)
@@ -133,6 +134,7 @@ namespace Controlbox.Api.Controllers
         /// <returns>No content or not found.</returns>
         [HttpDelete("{id}")]
         [Authorize]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> DeleteBook(int id)
         {
             var result = await this.mediator.Send(new DeleteBookCommand { Id = id });
