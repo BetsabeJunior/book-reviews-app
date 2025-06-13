@@ -57,6 +57,7 @@ namespace Controlbox.API.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(CategoryDto), 200)]
         [ProducesResponseType(404)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<CategoryDto>> GetById(int id)
         {
             var category = await this.mediator.Send(new GetCategoryByIdQuery { Id = id });
@@ -80,6 +81,7 @@ namespace Controlbox.API.Controllers
         [Authorize]
         [ProducesResponseType(typeof(int), 201)]
         [ProducesResponseType(401)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<int>> Create([FromBody] CreateCategoryCommand command)
         {
             var result = await this.mediator.Send(command);
@@ -102,6 +104,7 @@ namespace Controlbox.API.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
         [ProducesResponseType(404)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateCategoryCommand command)
         {
             if (id != command.Id)
@@ -131,6 +134,7 @@ namespace Controlbox.API.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(401)]
         [ProducesResponseType(404)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> Delete(int id)
         {
             var deleted = await this.mediator.Send(new DeleteCategoryCommand { Id = id });
