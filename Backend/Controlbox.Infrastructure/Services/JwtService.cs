@@ -32,6 +32,8 @@ namespace Controlbox.Infrastructure.Services
         /// <inheritdoc/>
         public string GenerateToken(int userId, string email, string name, string profilePicture)
         {
+            profilePicture ??= string.Empty;
+
             var claims = new List<Claim>
                {
                    new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
