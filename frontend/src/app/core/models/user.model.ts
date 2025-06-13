@@ -8,7 +8,12 @@ export interface User {
 
 export interface AuthResponse {
   token: string;
-  user: User;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+    profilePicture: string;
+  };
 }
 
 export interface LoginRequest {
