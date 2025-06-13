@@ -15,7 +15,6 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   
-  // Señales para el estado del componente
   loading = signal(false);
   error = signal<string | null>(null);
   showPassword = signal(false);
