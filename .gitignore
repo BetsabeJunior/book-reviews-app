@@ -1,0 +1,10 @@
+# .gitignore
+node_modules/
+dist/
+.env
+.vscode/
+bin/
+obj/
+*.user
+*.suo
+*.db
