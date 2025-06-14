@@ -1,0 +1,14 @@
+D:\Controlbox\Backend\Controlbox.Domain\bin\Debug\net9.0\Controlbox.Domain.deps.json
+D:\Controlbox\Backend\Controlbox.Domain\bin\Debug\net9.0\Controlbox.Domain.runtimeconfig.json
+D:\Controlbox\Backend\Controlbox.Domain\bin\Debug\net9.0\Controlbox.Domain.dll
+D:\Controlbox\Backend\Controlbox.Domain\bin\Debug\net9.0\Controlbox.Domain.pdb
+D:\Controlbox\Backend\Controlbox.Domain\obj\Debug\net9.0\Controlbox.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Controlbox\Backend\Controlbox.Domain\obj\Debug\net9.0\Controlbox.Domain.AssemblyInfoInputs.cache
+D:\Controlbox\Backend\Controlbox.Domain\obj\Debug\net9.0\Controlbox.Domain.AssemblyInfo.cs
+D:\Controlbox\Backend\Controlbox.Domain\obj\Debug\net9.0\Controlbox.Domain.csproj.CoreCompileInputs.cache
+D:\Controlbox\Backend\Controlbox.Domain\obj\Debug\net9.0\Controlbox.Domain.sourcelink.json
+D:\Controlbox\Backend\Controlbox.Domain\obj\Debug\net9.0\Controlbox.Domain.dll
+D:\Controlbox\Backend\Controlbox.Domain\obj\Debug\net9.0\refint\Controlbox.Domain.dll
+D:\Controlbox\Backend\Controlbox.Domain\obj\Debug\net9.0\Controlbox.Domain.pdb
+D:\Controlbox\Backend\Controlbox.Domain\obj\Debug\net9.0\Controlbox.Domain.genruntimeconfig.cache
+D:\Controlbox\Backend\Controlbox.Domain\obj\Debug\net9.0\ref\Controlbox.Domain.dll
