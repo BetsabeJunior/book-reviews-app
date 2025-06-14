@@ -60,5 +60,24 @@ namespace Controlbox.Infrastructure.Repositories
         {
             return await this.context.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
+
+        /// <inheritdoc/>
+        public async Task<bool> UpdateUserAsync(User user)
+        {
+            var existingUser = await this.context.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
+
+            if (existingUser == null)
+            {
+                return false;
+            }
+
+            existingUser.Name = user.Name;
+            existingUser.Email = user.Email;
+            existingUser.ProfilePicture = user.ProfilePicture;
+
+            await this.context.SaveChangesAsync();
+            return true;
+        }
+
     }
 }

@@ -1,0 +1,122 @@
+<div *ngIf="book" class="max-w-5xl mx-auto mt-10 p-6 bg-white dark:bg-gray-900 rounded-2xl shadow-lg space-y-8">
+
+  <!-- Botón Regresar -->
+  <button
+    (click)="goBack()"
+    class="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 mb-4"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+      stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+    </svg>
+    Volver
+  </button>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+    <img [src]="book.imageUrl" [alt]="book.title" (error)="onImageError($event)"
+      class="rounded-xl w-full h-96 object-cover shadow-md" />
+
+    <div class="space-y-4">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-white">{{ book.title }}</h2>
+      <p class="text-gray-600 dark:text-gray-400 text-base">Autor: <span class="font-medium">{{ book.author }}</span>
+      </p>
+      <p class="text-gray-600 dark:text-gray-400 text-base">
+        Categoría:
+        <span
+          class="inline-block bg-blue-200 dark:bg-blue-800 text-blue-900 dark:text-blue-200 text-sm px-2 py-1 rounded-full">
+          {{ book.category }}
+        </span>
+      </p>
+      <p class="text-gray-700 dark:text-gray-300 text-sm">{{ book.description }}</p>
+    </div>
+  </div>
+
+  <div class="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-inner">
+    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Dejar una reseña</h3>
+    <form (ngSubmit)="submitReview()" #reviewForm="ngForm" class="space-y-4">
+      <div>
+        <label class="block text-gray-700 dark:text-gray-300 mb-1">Calificación</label>
+        <select [(ngModel)]="newReview.rating" name="rating" required
+          class="w-full p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white">
+          <option *ngFor="let r of [1,2,3,4,5]" [value]="r">{{ r }}</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-gray-700 dark:text-gray-300 mb-1">Comentario</label>
+        <textarea [(ngModel)]="newReview.comment" name="comment" rows="4" required
+          class="w-full p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white"></textarea>
+      </div>
+      <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Enviar
+        reseña</button>
+    </form>
+  </div>
+
+<div *ngFor="let review of reviews" class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg shadow">
+  <div class="flex justify-between items-center mb-1">
+    <div class="flex items-center space-x-1">
+      <ng-container *ngFor="let star of getStarArray(review.rating)">
+        <span class="text-yellow-400 text-lg">★</span>
+      </ng-container>
+      <ng-container *ngFor="let star of getStarArray(5 - review.rating)">
+        <span class="text-gray-300 text-lg dark:text-gray-600">★</span>
+      </ng-container>
+    </div>
+    <span class="text-xs text-gray-400 dark:text-gray-500">{{ review.createdAt | date:'short' }}</span>
+  </div>
+
+  <div *ngIf="editingReviewId === review.id; else readOnlyReview">
+    <textarea
+      [(ngModel)]="editingReview.comment"
+      rows="2"
+      class="w-full p-2 text-sm rounded border dark:bg-gray-700 dark:text-white dark:border-gray-600"
+    ></textarea>
+    <div class="flex items-center mt-2 gap-2">
+      <label class="text-sm text-gray-600 dark:text-gray-300">Calificación:</label>
+      <select
+        [(ngModel)]="editingReview.rating"
+        class="text-sm rounded p-1 dark:bg-gray-700 dark:text-white dark:border-gray-600"
+      >
+        <option *ngFor="let num of [1,2,3,4,5]" [value]="num">{{ num }}</option>
+      </select>
+    </div>
+    <div class="mt-3 flex gap-2">
+      <button
+        (click)="saveEditedReview()"
+        class="px-3 py-1 text-xs font-medium text-white bg-green-600 hover:bg-green-700 rounded"
+      >
+        Guardar
+      </button>
+      <button
+        (click)="cancelEdit()"
+        class="px-3 py-1 text-xs font-medium text-white bg-gray-500 hover:bg-gray-600 rounded"
+      >
+        Cancelar
+      </button>
+    </div>
+  </div>
+
+  <ng-template #readOnlyReview>
+    <p class="text-gray-700 dark:text-gray-300 text-sm">{{ review.comment }}</p>
+
+    <div *ngIf="review.userId?.toString() === currentUserId?.toString()" class="mt-3 flex gap-2">
+      <button
+        (click)="editReview(review)"
+        class="px-3 py-1 text-xs font-medium text-white bg-blue-600 hover:bg-blue-700 rounded"
+      >
+        Editar
+      </button>
+      <button
+        (click)="deleteReview(review.id)"
+        class="px-3 py-1 text-xs font-medium text-white bg-red-600 hover:bg-red-700 rounded"
+      >
+        Eliminar
+      </button>
+    </div>
+  </ng-template>
+</div>
+
+</div>
+
+<div *ngIf="!book" class="text-center text-red-600 mt-10">
+  No se encontró información del libro.
+</div>

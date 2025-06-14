@@ -40,10 +40,12 @@ namespace Controlbox.Infrastructure.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<Book?> GetBookByIdAsync(int id)
+        public async Task<Book?> GetBookWithReviewsAsync(int id)
         {
             return await this.dbContext.Books
                 .Include(b => b.Category)
+                .Include(b => b.Reviews)
+                    .ThenInclude(r => r.User)
                 .FirstOrDefaultAsync(b => b.Id == id);
         }
 

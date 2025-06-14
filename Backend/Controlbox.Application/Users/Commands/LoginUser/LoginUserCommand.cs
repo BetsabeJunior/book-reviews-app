@@ -4,12 +4,13 @@
 
 namespace Controlbox.Application.Users.Commands.LoginUser
 {
+    using Controlbox.Application.Common.DTOs;
     using MediatR;
 
     /// <summary>
-    /// Command to login user and return a JWT token.
+    /// Command to login user and return a token and user data.
     /// </summary>
-    public class LoginUserCommand : IRequest<string?>
+    public class LoginUserCommand : IRequest<AuthResponseDto?>
     {
         /// <summary>
         /// Gets or sets the email of the user.

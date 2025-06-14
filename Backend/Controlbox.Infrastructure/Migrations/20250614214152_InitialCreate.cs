@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Controlbox.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitClean : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -113,6 +113,25 @@ namespace Controlbox.Infrastructure.Migrations
                 table: "users",
                 columns: new[] { "id", "created_at", "email", "name", "password", "profile_picture" },
                 values: new object[] { 1, new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc), "admin@gmail.com", "Admin", "$2a$11$C.XVRF2r7PZ7sLOLRtTsN.KYTs33mfHxNDsYwy6gycczIfNn.eZza", "" });
+
+            migrationBuilder.InsertData(
+                table: "books",
+                columns: new[] { "id", "author", "category_id", "created_at", "description", "image_url", "title" },
+                values: new object[,]
+                {
+                    { 1, "J.R.R. Tolkien", 1, new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc), "Una aventura épica en la Tierra Media.", "", "El Señor de los Anillos" },
+                    { 2, "Frank Herbert", 2, new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc), "Una historia de poder y desierto.", "", "Dune" },
+                    { 3, "Jane Austen", 3, new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc), "Romance clásico del siglo XIX.", "", "Orgullo y Prejuicio" },
+                    { 4, "Yuval Noah Harari", 4, new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc), "Historia de la humanidad.", "", "Sapiens" },
+                    { 5, "R.L. Stevenson", 5, new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc), "Búsqueda de un tesoro escondido.", "", "La Isla del Tesoro" },
+                    { 6, "J.K. Rowling", 1, new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc), "El inicio de una saga mágica.", "", "Harry Potter y la Piedra Filosofal" },
+                    { 7, "William Gibson", 2, new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc), "Ciberpunk y hackers del futuro.", "", "Neuromante" },
+                    { 8, "Emily Brontë", 3, new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc), "Romance oscuro en los páramos.", "", "Cumbres Borrascosas" },
+                    { 9, "Ken Follett", 4, new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc), "Construcción de una catedral en la Edad Media.", "", "Los Pilares de la Tierra" },
+                    { 10, "Jules Verne", 5, new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc), "Exploración subterránea asombrosa.", "", "Viaje al Centro de la Tierra" },
+                    { 11, "J.R.R. Tolkien", 1, new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc), "La primera aventura de Bilbo Bolsón.", "", "El Hobbit" },
+                    { 12, "Ray Bradbury", 2, new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc), "Relatos sobre la colonización de Marte.", "", "Crónicas Marcianas" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_books_category_id",

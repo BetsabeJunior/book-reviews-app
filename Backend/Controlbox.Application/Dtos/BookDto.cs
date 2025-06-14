@@ -4,6 +4,8 @@
 
 namespace Controlbox.Application.Books.Dtos
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Data transfer object for a book.
     /// </summary>
@@ -38,5 +40,10 @@ namespace Controlbox.Application.Books.Dtos
         /// Gets or sets the book image URL or path.
         /// </summary>
         public string ImageUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets list of reviews.
+        /// </summary>
+        public List<ReviewDto> Reviews { get; set; } = new List<ReviewDto>();
     }
 }

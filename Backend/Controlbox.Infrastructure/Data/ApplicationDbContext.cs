@@ -126,7 +126,7 @@ namespace Controlbox.Infrastructure.Data
                       .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // Static seed data
+            // Seed categories
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Fantasía" },
                 new Category { Id = 2, Name = "Ciencia Ficción" },
@@ -134,6 +134,7 @@ namespace Controlbox.Infrastructure.Data
                 new Category { Id = 4, Name = "Historia" },
                 new Category { Id = 5, Name = "Aventura" });
 
+            // Seed admin user
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
@@ -144,7 +145,23 @@ namespace Controlbox.Infrastructure.Data
                     ProfilePicture = string.Empty,
                     CreatedAt = new DateTime(2025, 6, 13, 0, 0, 0, DateTimeKind.Utc),
                 });
-        }
 
+            DateTime seedDate = new DateTime(2025, 6, 13, 0, 0, 0, DateTimeKind.Utc);
+
+            modelBuilder.Entity<Book>().HasData(
+                new Book { Id = 1, Title = "El Señor de los Anillos", Author = "J.R.R. Tolkien", Description = "Una aventura épica en la Tierra Media.", ImageUrl = "", CreatedAt = seedDate, CategoryId = 1 },
+                new Book { Id = 2, Title = "Dune", Author = "Frank Herbert", Description = "Una historia de poder y desierto.", ImageUrl = "", CreatedAt = seedDate, CategoryId = 2 },
+                new Book { Id = 3, Title = "Orgullo y Prejuicio", Author = "Jane Austen", Description = "Romance clásico del siglo XIX.", ImageUrl = "", CreatedAt = seedDate, CategoryId = 3 },
+                new Book { Id = 4, Title = "Sapiens", Author = "Yuval Noah Harari", Description = "Historia de la humanidad.", ImageUrl = "", CreatedAt = seedDate, CategoryId = 4 },
+                new Book { Id = 5, Title = "La Isla del Tesoro", Author = "R.L. Stevenson", Description = "Búsqueda de un tesoro escondido.", ImageUrl = "", CreatedAt = seedDate, CategoryId = 5 },
+                new Book { Id = 6, Title = "Harry Potter y la Piedra Filosofal", Author = "J.K. Rowling", Description = "El inicio de una saga mágica.", ImageUrl = "", CreatedAt = seedDate, CategoryId = 1 },
+                new Book { Id = 7, Title = "Neuromante", Author = "William Gibson", Description = "Ciberpunk y hackers del futuro.", ImageUrl = "", CreatedAt = seedDate, CategoryId = 2 },
+                new Book { Id = 8, Title = "Cumbres Borrascosas", Author = "Emily Brontë", Description = "Romance oscuro en los páramos.", ImageUrl = "", CreatedAt = seedDate, CategoryId = 3 },
+                new Book { Id = 9, Title = "Los Pilares de la Tierra", Author = "Ken Follett", Description = "Construcción de una catedral en la Edad Media.", ImageUrl = "", CreatedAt = seedDate, CategoryId = 4 },
+                new Book { Id = 10, Title = "Viaje al Centro de la Tierra", Author = "Jules Verne", Description = "Exploración subterránea asombrosa.", ImageUrl = "", CreatedAt = seedDate, CategoryId = 5 },
+                new Book { Id = 11, Title = "El Hobbit", Author = "J.R.R. Tolkien", Description = "La primera aventura de Bilbo Bolsón.", ImageUrl = "", CreatedAt = seedDate, CategoryId = 1 },
+                new Book { Id = 12, Title = "Crónicas Marcianas", Author = "Ray Bradbury", Description = "Relatos sobre la colonización de Marte.", ImageUrl = "", CreatedAt = seedDate, CategoryId = 2 }
+            );
+        }
     }
 }

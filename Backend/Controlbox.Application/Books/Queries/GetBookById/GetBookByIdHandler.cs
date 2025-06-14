@@ -8,6 +8,7 @@ namespace Controlbox.Application.Books.Queries.GetBookById
     using System.Threading.Tasks;
     using Controlbox.Application.Books.Dtos;
     using Controlbox.Application.Common.Interfaces;
+    using Controlbox.Domain.Entities;
     using MediatR;
 
     /// <summary>
@@ -29,7 +30,7 @@ namespace Controlbox.Application.Books.Queries.GetBookById
         /// <inheritdoc/>
         public async Task<BookDto> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
         {
-            var book = await this.bookRepository.GetBookByIdAsync(request.Id);
+            var book = await this.bookRepository.GetBookWithReviewsAsync(request.Id);
 
             if (book == null)
             {
@@ -44,6 +45,14 @@ namespace Controlbox.Application.Books.Queries.GetBookById
                 Description = book.Description,
                 Category = book.Category?.Name,
                 ImageUrl = book.ImageUrl,
+                Reviews = book.Reviews?.Select(r => new ReviewDto
+                {
+                    Id = r.Id,
+                    Comment = r.Comment,
+                    Rating = r.Rating,
+                    UserId = r.User?.Id.ToString() ?? string.Empty,
+                    Username = r.User?.Name ?? "Unknown",
+                }).ToList(),
             };
         }
 

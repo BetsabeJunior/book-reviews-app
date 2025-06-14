@@ -1,0 +1,89 @@
+<div class="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 py-12">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 text-center relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-2xl pointer-events-none"></div>
+
+      <img
+        [src]="(isEditing ? editedUser.profilePicture : user.profilePicture) || 'avatar.jpg'"
+        alt="Profile Picture"
+        class="w-32 h-32 mx-auto rounded-full shadow-lg object-cover border-4 border-white dark:border-slate-900 mb-4 relative z-10"
+      />
+
+      <div *ngIf="!isEditing" class="relative z-10">
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-1">
+          {{ user.name }}
+        </h2>
+        <p class="text-slate-600 dark:text-slate-300 text-base mb-6">
+          {{ user.email }}
+        </p>
+      </div>
+
+      <form *ngIf="isEditing" (ngSubmit)="saveEdit()" class="space-y-4 relative z-10">
+        <input
+          type="text"
+          [(ngModel)]="editedUser.name"
+          name="name"
+          placeholder="Nombre"
+          class="w-full px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
+          required
+        />
+        <input
+          type="email"
+          [(ngModel)]="editedUser.email"
+          name="email"
+          placeholder="Correo"
+          class="w-full px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
+          required
+        />
+        <input
+          type="url"
+          [(ngModel)]="editedUser.profilePicture"
+          name="profilePicture"
+          placeholder="URL de foto"
+          class="w-full px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
+        />
+      </form>
+
+      <div class="flex justify-center gap-4 mt-6 relative z-10">
+        <ng-container *ngIf="!isEditing; else editingButtons">
+          <button
+            (click)="startEdit()"
+            class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition duration-200 cursor-pointer"
+          >
+            Editar perfil
+          </button>
+          <button
+            (click)="logout()"
+            class="px-5 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl transition duration-200 cursor-pointer"
+          >
+            Cerrar sesión
+          </button>
+        </ng-container>
+
+        <ng-template #editingButtons>
+          <button
+            (click)="saveEdit()"
+            class="px-5 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl transition duration-200 cursor-pointer"
+          >
+            Guardar
+          </button>
+          <button
+            (click)="cancelEdit()"
+            class="px-5 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-xl transition duration-200 cursor-pointer"
+          >
+            Cancelar
+          </button>
+        </ng-template>
+      </div>
+
+      <div class="flex justify-center mt-6 relative z-10">
+        <button
+          routerLink="/home"
+          class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl transition duration-200 cursor-pointer"
+        >
+          Volver al inicio
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

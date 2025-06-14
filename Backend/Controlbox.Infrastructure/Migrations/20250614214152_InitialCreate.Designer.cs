@@ -12,15 +12,15 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Controlbox.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250614141044_InitClean")]
-    partial class InitClean
+    [Migration("20250614214152_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.4")
+                .HasAnnotation("ProductVersion", "9.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -66,6 +66,128 @@ namespace Controlbox.Infrastructure.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("books", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Author = "J.R.R. Tolkien",
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Una aventura épica en la Tierra Media.",
+                            ImageUrl = "",
+                            Title = "El Señor de los Anillos"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Author = "Frank Herbert",
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Una historia de poder y desierto.",
+                            ImageUrl = "",
+                            Title = "Dune"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Author = "Jane Austen",
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Romance clásico del siglo XIX.",
+                            ImageUrl = "",
+                            Title = "Orgullo y Prejuicio"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Author = "Yuval Noah Harari",
+                            CategoryId = 4,
+                            CreatedAt = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Historia de la humanidad.",
+                            ImageUrl = "",
+                            Title = "Sapiens"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Author = "R.L. Stevenson",
+                            CategoryId = 5,
+                            CreatedAt = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Búsqueda de un tesoro escondido.",
+                            ImageUrl = "",
+                            Title = "La Isla del Tesoro"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Author = "J.K. Rowling",
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "El inicio de una saga mágica.",
+                            ImageUrl = "",
+                            Title = "Harry Potter y la Piedra Filosofal"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Author = "William Gibson",
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Ciberpunk y hackers del futuro.",
+                            ImageUrl = "",
+                            Title = "Neuromante"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Author = "Emily Brontë",
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Romance oscuro en los páramos.",
+                            ImageUrl = "",
+                            Title = "Cumbres Borrascosas"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Author = "Ken Follett",
+                            CategoryId = 4,
+                            CreatedAt = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Construcción de una catedral en la Edad Media.",
+                            ImageUrl = "",
+                            Title = "Los Pilares de la Tierra"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Author = "Jules Verne",
+                            CategoryId = 5,
+                            CreatedAt = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Exploración subterránea asombrosa.",
+                            ImageUrl = "",
+                            Title = "Viaje al Centro de la Tierra"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Author = "J.R.R. Tolkien",
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "La primera aventura de Bilbo Bolsón.",
+                            ImageUrl = "",
+                            Title = "El Hobbit"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Author = "Ray Bradbury",
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Relatos sobre la colonización de Marte.",
+                            ImageUrl = "",
+                            Title = "Crónicas Marcianas"
+                        });
                 });
 
             modelBuilder.Entity("Controlbox.Domain.Entities.Category", b =>

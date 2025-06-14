@@ -7,7 +7,6 @@ namespace Controlbox.Application.Common.Mappings
     using AutoMapper;
     using Controlbox.Application.Books.Dtos;
     using Controlbox.Application.Categories.Dtos;
-    using Controlbox.Application.Reviews.Dtos;
     using Controlbox.Application.Users.Dtos;
     using Controlbox.Application.Users.Queries.GetUserProfile;
     using Controlbox.Domain.Entities;
@@ -34,7 +33,7 @@ namespace Controlbox.Application.Common.Mappings
 
             // Review mappings
             this.CreateMap<Review, ReviewDto>()
-                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.Name))
+                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.Name))
                 .ReverseMap();
 
             // User mappings

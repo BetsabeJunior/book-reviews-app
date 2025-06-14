@@ -6,10 +6,10 @@ namespace Controlbox.Api.Controllers
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Controlbox.Application.Books.Dtos;
     using Controlbox.Application.Reviews.Commands.CreateReview;
     using Controlbox.Application.Reviews.Commands.DeleteReview;
     using Controlbox.Application.Reviews.Commands.UpdateReview;
-    using Controlbox.Application.Reviews.Dtos;
     using Controlbox.Application.Reviews.Queries.GetAllReviews;
     using Controlbox.Application.Reviews.Queries.GetReviewById;
     using MediatR;
@@ -66,13 +66,13 @@ namespace Controlbox.Api.Controllers
         /// Creates a new review.
         /// </summary>
         /// <param name="command">The review data.</param>
-        /// <returns>The review ID.</returns>
+        /// <returns>The created review.</returns>
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<int>> CreateReview([FromBody] CreateReviewCommand command)
+        public async Task<ActionResult<ReviewDto>> CreateReview([FromBody] CreateReviewCommand command)
         {
-            var id = await this.mediator.Send(command);
-            return this.CreatedAtAction(nameof(this.GetReviewById), new { id }, id);
+            var review = await this.mediator.Send(command);
+            return this.CreatedAtAction(nameof(this.GetReviewById), new { id = review.ToString() }, review);
         }
 
         /// <summary>

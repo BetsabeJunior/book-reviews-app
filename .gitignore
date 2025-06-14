@@ -1,10 +1,22 @@
-# .gitignore
-node_modules/
-dist/
-.env
-.vscode/
+# === BACKEND (.NET) ===
 bin/
 obj/
+.vs/
 *.user
 *.suo
 *.db
+*.log
+*.Publish.xml
+
+# === FRONTEND (Angular) ===
+node_modules/
+dist/
+.env
+
+# === SISTEMA OPERATIVO ===
+.DS_Store
+Thumbs.db
+
+# === CARPETAS DE COMPILACIÓN PROFUNDAS ===
+**/bin/
+**/obj/

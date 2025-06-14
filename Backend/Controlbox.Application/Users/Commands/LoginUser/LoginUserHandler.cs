@@ -6,13 +6,14 @@ namespace Controlbox.Application.Users.Commands.LoginUser
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Controlbox.Application.Common.DTOs;
     using Controlbox.Application.Common.Interfaces;
     using MediatR;
 
     /// <summary>
-    /// Handles the login user command and returns a JWT token.
+    /// Handles the login user command and returns a token with user data.
     /// </summary>
-    public class LoginUserHandler : IRequestHandler<LoginUserCommand, string?>
+    public class LoginUserHandler : IRequestHandler<LoginUserCommand, AuthResponseDto?>
     {
         private readonly IUserRepository userRepository;
         private readonly IJwtService jwtService;
@@ -35,8 +36,8 @@ namespace Controlbox.Application.Users.Commands.LoginUser
         /// </summary>
         /// <param name="request">The login user command.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>The JWT token or null if login fails.</returns>
-        public async Task<string?> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+        /// <returns>The auth response or null.</returns>
+        public async Task<AuthResponseDto?> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
             var user = await this.userRepository.GetUserByEmailAsync(request.Email);
 
@@ -52,7 +53,19 @@ namespace Controlbox.Application.Users.Commands.LoginUser
                 return null;
             }
 
-            return this.jwtService.GenerateToken(user.Id, user.Email, user.Name, user.ProfilePicture);
+            var token = this.jwtService.GenerateToken(user.Id, user.Email, user.Name, user.ProfilePicture);
+
+            return new AuthResponseDto
+            {
+                Token = token,
+                User = new UserDto
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Email = user.Email,
+                    ProfilePicture = user.ProfilePicture
+                }
+            };
         }
     }
 }

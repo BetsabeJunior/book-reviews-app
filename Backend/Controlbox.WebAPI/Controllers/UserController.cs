@@ -5,8 +5,10 @@
 namespace Controlbox.Api.Controllers
 {
     using System.Threading.Tasks;
+    using Controlbox.Application.Common.DTOs;
     using Controlbox.Application.Users.Commands.LoginUser;
     using Controlbox.Application.Users.Commands.RegisterUser;
+    using Controlbox.Application.Users.Commands.UpdateUser;
     using Controlbox.Application.Users.Dtos;
     using Controlbox.Application.Users.Queries.GetUserProfile;
     using MediatR;
@@ -32,12 +34,12 @@ namespace Controlbox.Api.Controllers
         }
 
         /// <summary>
-        /// Register a new user and return a JWT token.
+        /// Register a new user and return token and user data.
         /// </summary>
         /// <param name="command">The user registration data.</param>
-        /// <returns>The JWT token if successful.</returns>
+        /// <returns>The JWT token and user information if successful.</returns>
         [HttpPost("register")]
-        public async Task<ActionResult<string>> Register([FromBody] RegisterUserCommand command)
+        public async Task<ActionResult<AuthResponseDto>> Register([FromBody] RegisterUserCommand command)
         {
             int userId = await this.mediator.Send(command);
 
@@ -52,32 +54,32 @@ namespace Controlbox.Api.Controllers
                 Password = command.Password,
             };
 
-            string? token = await this.mediator.Send(loginCommand);
+            AuthResponseDto? result = await this.mediator.Send(loginCommand);
 
-            if (string.IsNullOrWhiteSpace(token))
+            if (result == null)
             {
                 return this.Unauthorized("User registered but login failed.");
             }
 
-            return this.Ok(token);
+            return this.Ok(result);
         }
 
         /// <summary>
         /// Login with email and password.
         /// </summary>
         /// <param name="command">The login data.</param>
-        /// <returns>The JWT token.</returns>
+        /// <returns>The JWT token and user information.</returns>
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login([FromBody] LoginUserCommand command)
+        public async Task<ActionResult<AuthResponseDto>> Login([FromBody] LoginUserCommand command)
         {
-            string? token = await this.mediator.Send(command);
+            AuthResponseDto? result = await this.mediator.Send(command);
 
-            if (string.IsNullOrWhiteSpace(token))
+            if (result == null)
             {
                 return this.Unauthorized("Invalid email or password.");
             }
 
-            return this.Ok(token);
+            return this.Ok(result);
         }
 
         /// <summary>
@@ -92,5 +94,32 @@ namespace Controlbox.Api.Controllers
             return this.Ok(result);
         }
 
+        /// <summary>
+        /// Update one user.
+        /// </summary>
+        /// <param name="id">The user ID.</param>
+        /// <param name="command">The new user data (without ID).</param>
+        /// <returns>No content if successful.</returns>
+        [HttpPut("{id}")]
+        [Authorize]
+        public async Task<ActionResult<AuthResponseDto>> UpdateUser(int id, [FromBody] UpdateUserDto command)
+        {
+            var updateCommand = new UpdateUserCommand
+            {
+                UserId = id,
+                Name = command.Name,
+                Email = command.Email,
+                ProfilePicture = command.ProfilePicture,
+            };
+
+            var result = await this.mediator.Send(updateCommand);
+
+            if (result == null)
+            {
+                return this.NotFound("User not found or update failed.");
+            }
+
+            return this.Ok(result);
+        }
     }
 }

@@ -20,11 +20,11 @@ namespace Controlbox.Application.Common.Interfaces
         Task<List<Book>> GetAllBooksAsync();
 
         /// <summary>
-        /// Gets one book by id.
+        /// Get one book with reviews and user info.
         /// </summary>
         /// <param name="id">The book id.</param>
-        /// <returns>The book or null.</returns>
-        Task<Book?> GetBookByIdAsync(int id);
+        /// <returns>The book with reviews or null.</returns>
+        Task<Book?> GetBookWithReviewsAsync(int id);
 
         /// <summary>
         /// Adds a new book.

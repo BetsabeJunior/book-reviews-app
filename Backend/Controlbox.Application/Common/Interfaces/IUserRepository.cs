@@ -40,5 +40,13 @@ namespace Controlbox.Application.Common.Interfaces
         /// <param name="id">The user ID.</param>
         /// <returns>The user or null if not found.</returns>
         Task<User?> GetUserByIdAsync(int id);
+
+        /// <summary>
+        /// Update user information.
+        /// </summary>
+        /// <param name="user">The updated user entity.</param>
+        /// <returns>True if update success.</returns>
+        Task<bool> UpdateUserAsync(User user);
+
     }
 }
